@@ -1,0 +1,39 @@
+= Verifiable
+
+* http://github.com/kuinak/verifiable
+
+== Description
+
+Creates verified associations. Verified associations are similar to regular
+associations, except that a step has been taken to verify the integrity of the
+association.
+
+== Usage
+
+Add verifiable to your Gemfile (or whatever if you're not using bundler):
+
+  gem "verifiable"
+
+Run the generator to create the necessary database migration and run it:
+
+  script/generate verifiable_migration
+  rake db:migrate
+
+Include Verifiable::Associations in your classes and specify the correct type
+of association:
+
+  class User < ActiveRecord::Base
+
+    include Verifiable::Associations
+    has_many_verifiable :phone_numbers
+
+  end
+
+  class PhoneNumber < ActiveRecord::Base
+
+    include Verifiable::Associations
+    verifiable_for :users
+
+  end
+
+

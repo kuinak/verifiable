@@ -1,0 +1,6 @@
+pkg/*
+*.gem
+.bundle
+*.swp
+test/.verifiable.sqlite3
+test/test.log
