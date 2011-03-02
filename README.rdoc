@@ -36,4 +36,27 @@ of association:
 
   end
 
+Create some associations that need verification:
 
+  user = User.create
+  phone_number = user.phone_numbers.create
+
+Associated objects don't show up until they're verified:
+
+  user.phone_numbers == [] # true
+
+Get unverified objects like this:
+
+  user.unverified_phone_numbers == [phone_number] # true
+
+Get the verification code for an association:
+
+  code = user.verification_code_for(phone_number)
+
+Verify the association
+
+  user.verify!(phone_number, code)
+
+Once verified, the associated objects show up:
+
+  user.phone_numbers == [phone_number] # true
