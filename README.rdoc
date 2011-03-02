@@ -43,11 +43,13 @@ Create some associations that need verification:
 
 Associated objects don't show up until they're verified:
 
-  user.phone_numbers == [] # true
+  >> user.phone_numbers == []
+  => true
 
 Get unverified objects like this:
 
-  user.unverified_phone_numbers == [phone_number] # true
+  >> user.unverified_phone_numbers == [phone_number]
+  => true
 
 Get the verification code for an association:
 
@@ -59,4 +61,5 @@ Verify the association
 
 Once verified, the associated objects show up:
 
-  user.phone_numbers == [phone_number] # true
+  >> user.phone_numbers == [phone_number]
+  => true
