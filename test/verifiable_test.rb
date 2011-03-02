@@ -13,6 +13,19 @@ class VerifiableTest < Test::Unit::TestCase
     assert_equal [], u.unverified_phone_numbers(true)
   end
 
+  def test_custom_code
+    u = User.create!
+    p = PhoneNumber.create!
+    v = Verifiable::Verification.create!(:code => "abcd", :object => u, :verifiable => p)
+    assert_equal [], u.phone_numbers
+    assert_equal [p], u.unverified_phone_numbers
+    code = p.verification_code_for(u)
+    assert_equal "abcd", code
+    u.verify!(p, code)
+    assert_equal [p], u.phone_numbers(true)
+    assert_equal [], u.unverified_phone_numbers(true)
+  end
+
   def test_verifiable_for
     u = User.create!
     p = u.phone_numbers.create!

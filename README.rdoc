@@ -51,7 +51,7 @@ Get unverified objects like this:
   >> user.unverified_phone_numbers == [phone_number]
   => true
 
-Get the verification code for an association:
+Get the verification code for an association (code is a random 4 digit string):
 
   code = user.verification_code_for(phone_number)
 
@@ -63,3 +63,9 @@ Once verified, the associated objects show up:
 
   >> user.phone_numbers == [phone_number]
   => true
+
+To create a verification that has a different code:
+
+  user = User.create!
+  phone_number = PhoneNumber.create!
+  Verifiable::Verification.create!(:code => "abcd", :object => user, :verifiable => phone_number)
