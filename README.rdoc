@@ -55,7 +55,7 @@ Get the verification code for an association (code is a random 4 digit string):
 
   code = user.verification_code_for(phone_number)
 
-Verify the association
+Verify the association (returns true if code is correct):
 
   user.verify!(phone_number, code)
 
@@ -64,8 +64,8 @@ Once verified, the associated objects show up:
   >> user.phone_numbers == [phone_number]
   => true
 
-To create a verification that has a different code:
+To create a verification that has a different type of code:
 
-  user = User.create!
-  phone_number = PhoneNumber.create!
-  Verifiable::Verification.create!(:code => "abcd", :object => user, :verifiable => phone_number)
+  user = User.create
+  phone_number = PhoneNumber.create
+  Verifiable::Verification.create(:code => "abcd", :object => user, :verifiable => phone_number)
