@@ -70,6 +70,10 @@ To create a verification that has a different type of code:
   phone_number = PhoneNumber.create
   Verifiable::Verification.create(:code => "abcd", :object => user, :verifiable => phone_number)
 
+== LICENSE
+
+The MIT License, see LICENSE
+
 == TODO
 
 * Make singular associations work (has_one)
