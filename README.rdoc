@@ -69,3 +69,8 @@ To create a verification that has a different type of code:
   user = User.create
   phone_number = PhoneNumber.create
   Verifiable::Verification.create(:code => "abcd", :object => user, :verifiable => phone_number)
+
+== TODO
+
+* Make singular associations work (has_one)
+* Figure out a way to make association specific verification code generators
