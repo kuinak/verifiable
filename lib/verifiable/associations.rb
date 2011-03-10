@@ -31,12 +31,10 @@ module Verifiable
       end
 
       def verifiable_for(things, options = {})
-        thing_name = things.to_s.singularize
-        source_type = thing_name.camelize
-        reverse_association_name = "#{thing_name}_verifications".to_sym
-        has_many reverse_association_name, :as => :verifiable, :dependent => :destroy, :class_name => "Verifiable::Verification"
-        has_many things, :through => reverse_association_name, :source => :object, :source_type => source_type, :conditions => "verified_at IS NOT NULL"
-        has_many "unverified_#{things}", :through => reverse_association_name, :source => :object, :source_type => source_type, :conditions => "verified_at IS NULL"
+        source_type = things.to_s.singularize.camelize
+        has_many :verifications_for, :as => :verifiable, :dependent => :destroy, :class_name => "Verifiable::Verification" unless reflect_on_association(:verifications_for)
+        has_many things, :through => :verifications_for, :source => :object, :source_type => source_type, :conditions => "verified_at IS NOT NULL"
+        has_many "unverified_#{things}", :through => :verifications_for, :source => :object, :source_type => source_type, :conditions => "verified_at IS NULL"
       end
     end
   end
