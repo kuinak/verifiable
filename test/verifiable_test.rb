@@ -57,4 +57,23 @@ class VerifiableTest < Test::Unit::TestCase
     assert_equal false, u.verify!(p, "xxxx")
   end
 
+  def test_has_many_verifiable_and_verifiable_for
+    # ringtones have verifiable phone numbers and can be verified for users
+    u = User.create!
+    p = u.phone_numbers.create!
+    r = u.ringtones.create!
+    r.phone_numbers << p
+    u.verify!(p, p.verification_code_for(u))
+    u.verify!(r, r.verification_code_for(u))
+    r.verify!(p, p.verification_code_for(r))
+    assert_equal [u], r.users(true)
+    assert_equal [], r.unverified_users(true)
+    assert_equal [r], u.ringtones(true)
+    assert_equal [], u.unverified_ringtones(true)
+    assert_equal [p], r.phone_numbers(true)
+    assert_equal [], r.unverified_phone_numbers(true)
+    assert_equal [r], p.ringtones(true)
+    assert_equal [], p.unverified_ringtones(true)
+  end
+
 end

@@ -8,6 +8,10 @@ ActiveRecord::Schema.define :version => 0 do
     t.integer "id"
   end
 
+  create_table "ringtones", :force => true do |t|
+    t.integer "id"
+  end
+
   create_table "verifications", :force => true do |t|
     t.integer  "object_id"
     t.string   "object_type"

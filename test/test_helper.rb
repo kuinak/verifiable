@@ -2,6 +2,7 @@ require "verifiable"
 require "test/unit"
 require "test/user"
 require "test/phone_number"
+require "test/ringtone"
 require "sqlite3"
 require "ruby-debug"
 
